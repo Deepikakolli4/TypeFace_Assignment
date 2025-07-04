@@ -11,20 +11,23 @@ const createTransactionService = async( userId , data )=>{
     }
 };
 
-const getTransactionService = async(userId,{start , end , page = 1, limit = 10}) =>{
-    try{
-       const query = {userId};
-       if( start && end ){
-        query.date = {$gte: new Date(start), $lte: new Date(end)}
-       }
-       const transactions = await Transaction.find(query)
-       .sort({date : -1})
-       .skip((page -1) * limit)
-       .limit(parseInt(limit));
-       return transactions
-    }catch(error){
-        console.log(error.message);
+const getTransactionService = async (userId, { start, end, page = 1, limit = 10 }) => {
+  try {
+    const query = { userId };
+
+    if (start && end) {
+      query.date = { $gte: new Date(start), $lte: new Date(end) };
     }
+
+    const transactions = await Transaction.find(query)
+      .sort({ date: -1 })
+      .skip((page - 1) * limit)
+      .limit(parseInt(limit));
+      console.log(transactions);
+    return transactions;
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 const deleteTransactionService = async(userId,transactionId)=>{
