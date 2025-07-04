@@ -37,19 +37,17 @@ const getTransactionSummary = async (req, res) => {
   }
 };
 
-// const uploadReceipt = async (req, res) => {
-//   try {
-//     if (!req.file) {
-//       return res.status(400).json({ error: 'No file uploaded' });
-//     }
+const uploadReceipt = async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
 
-//     const extractedData = await transactionService.uploadReceiptService(req.file, req.user.userId);
-//     res.json(extractedData);
+    const extractedData = await transactionService.uploadReceiptService(req.file, req.user.userId);
+    res.json(extractedData);
 
-//   } catch (error) {
-//     res.status(400).json({ error: error.message });
-//   }
-// };
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 
 // const uploadPdf = async (req, res) => {
@@ -72,6 +70,6 @@ export default {
   getTransaction,
   deleteTransaction,
   getTransactionSummary,
-//   uploadReceipt,
+  uploadReceipt,
 //   uploadPdf
 };

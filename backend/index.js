@@ -13,18 +13,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// // Create uploads directory
-// const uploadDir = path.resolve('uploads');
-// if (!fs.existsSync(uploadDir)) {
-//   fs.mkdirSync(uploadDir, { recursive: true });
-// }
+// Auto-create uploads directory
+const uploadDir = path.resolve('uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 
-// Connect to MongoDB
+//  Serve static files from uploads
+app.use('/uploads', express.static('./uploads'));
+
+// MongoDB Connection
 const mongoURI = process.env.MONGO_URI;
 mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB is Connected Successfully'))
   .catch(err => console.error('MongoDb connection error: ', err));
 
+// Routes
 app.use('/users', userRouter);
 app.use('/transactions', transactionRouter);
 

@@ -52,23 +52,23 @@ const getTransactionSummaryService = async(userId) => {
       }
 };
 
-// const uploadReceiptService = async (file, userId) => {
-//   try {
-//     const imagePath = file.path;
+import Tesseract from 'tesseract.js';
 
-//     const result = await Tesseract.recognize(imagePath, 'eng');
-//     const extractedText = result.data.text;
+const uploadReceiptService = async (file, userId) => {
+  try {
+    const imagePath = file.path;
 
-//     const lines = extractedText.split('\n').filter(line => line.trim() !== '');
+    const result = await Tesseract.recognize(imagePath, 'eng');  
+    const lines = result.data.text.split('\n').filter(line => line.trim() !== '');
 
-//     return {
-//       extractedLines: lines
-//     };
-//   } catch (error) {
-//     console.log('Error in uploadReceiptService:', error.message);
-//     throw error;  
-//   }
-// };
+    return { extractedLines: lines };
+
+  } catch (error) {
+    console.log('Error in uploadReceiptService:', error.message);
+    throw error;
+  }
+};
+
 
 // const uploadPdfService = async (file, userId) => {
 //   try {
@@ -93,6 +93,6 @@ export default {
     getTransactionService,
     deleteTransactionService,
     getTransactionSummaryService,
-    // uploadReceiptService,
+    uploadReceiptService,
     // uploadPdfService
 }

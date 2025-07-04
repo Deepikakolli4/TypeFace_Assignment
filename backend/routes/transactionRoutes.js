@@ -9,7 +9,7 @@ router.post('/create', authenticateToken, transactionController.createTransactio
 router.get('/', authenticateToken, transactionController.getTransaction);
 router.delete('/:id', authenticateToken, transactionController.deleteTransaction);
 router.get('/summary', authenticateToken, transactionController.getTransactionSummary);
-// router.post('/receipt-upload', authenticateToken, uploadMiddleWare.single('receipt'), transactionController.uploadReceipt);
+router.post('/receipt-upload', authenticateToken, uploadMiddleWare.single('receipt'), transactionController.uploadReceipt);
 // router.post('/pdf-upload', authenticateToken, uploadMiddleWare.single('pdf'), transactionController.uploadPdf);
 
 
