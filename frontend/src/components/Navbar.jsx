@@ -16,7 +16,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <span className="navbar-icon">💰</span> Personal Finance Tracker
+       Personal Finance Tracker💰
       </div>
       <div className="nav-links">
         <NavLink 
