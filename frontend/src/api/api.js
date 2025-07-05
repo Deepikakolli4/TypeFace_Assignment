@@ -13,25 +13,27 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export const registerUser = (data) => api.post('/users/register', data);
+export const registerUser = (data) => api.post(urls.register, data);
 export const loginUser = (data) => api.post(urls.login, data);
-export const createTransaction = (data) => api.post('/transactions/create', data);
-export const getTransactions = (params) => api.get('/transactions', { params });
-export const deleteTransaction = (id) => api.delete(`/transactions/${id}`);
-export const getSummary = () => api.get('/transactions/summary');
+export const createTransaction = (data) => api.post(urls.create, data);
+export const getTransactions = (params) => api.get(urls.get, { params });
+
+export const deleteTransaction = (id) => api.delete(urls.delete(id));
+
+export const getSummary = () => api.get(urls.summary);
+
 export const uploadReceipt = (file) => {
   const formData = new FormData();
   formData.append('receipt', file);
-  return api.post('/transactions/receipt-upload', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  });
-};
-export const uploadPdf = (file) => {
-  const formData = new FormData();
-  formData.append('pdf', file);
-  return api.post('/transactions/pdf-upload', formData, {
+  return api.post(urls.receiptUpload, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 };
 
-export default api;
+export const uploadPdf = (file) => {
+  const formData = new FormData();
+  formData.append('pdf', file);
+  return api.post(urls.pdfUpload, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+};
