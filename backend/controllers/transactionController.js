@@ -37,6 +37,19 @@ const getTransactionSummary = async (req, res) => {
   }
 };
 
+
+const getUserTransactions = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const transactions = await Transaction.find({ userId }).sort({ date: -1 });
+
+    res.json(transactions);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 const uploadReceipt = async (req, res) => {
   try {
     if (!req.file) {
@@ -76,6 +89,7 @@ export default {
   getTransaction,
   deleteTransaction,
   getTransactionSummary,
+  getUserTransactions,
   uploadReceipt,
 //   uploadPdf
 };
