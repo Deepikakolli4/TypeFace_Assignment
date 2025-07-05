@@ -1,8 +1,8 @@
 import './App.css';
 import { BrowserRouter as Router,Route,Routes,Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Register from './pages/register';
-import Login from './pages/login';
+import Register from './pages/Register';
+import Login from './pages/Login';
 import Upload from './pages/Upload'
 import './App.css'
 
