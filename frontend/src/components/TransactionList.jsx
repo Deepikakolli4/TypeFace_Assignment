@@ -132,4 +132,4 @@ const TransactionList = () => {
     </div>
   );
 };
-export default TransactionList
+export default TransactionList;
