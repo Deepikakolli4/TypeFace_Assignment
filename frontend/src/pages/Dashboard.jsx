@@ -1,7 +1,7 @@
 import React from 'react';
 import TransactionForm from '../components/TranscationForm';
 import SummaryChart from '../components/SummaryChart';
-
+import '../App.css'
 const DashBoard = () =>{
     return (
         <div className='page-container'>

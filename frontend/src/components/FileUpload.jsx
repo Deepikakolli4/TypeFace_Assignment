@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { uploadReceipt, uploadPdf } from '../api/api';
-import '../app.css';
+import '../App.css'
 
 const FileUpload = ({ onUploadSuccess }) => {
   const [file, setFile] = useState(null);

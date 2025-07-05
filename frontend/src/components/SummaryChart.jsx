@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { getSummary } from '../api/api';
-
+import '../App.css'
 const SummaryChart = () => {
     const [summary,setSummary] = useState({totalIncome : 0 , totalExpense : 0});
     const [error,setError] = useState('');

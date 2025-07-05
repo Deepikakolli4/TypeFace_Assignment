@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createTransaction } from '../api/api';
-import '../app.css';
+import '../App.css'
 
 const TransactionForm = ({ onTransactionCreated }) => {
   const [formData, setFormData] = useState({

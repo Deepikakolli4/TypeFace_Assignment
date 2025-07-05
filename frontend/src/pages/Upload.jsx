@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import FileUpload from '../components/FileUpload';
-import '../app.css';
-
+import '../App.css'
 const Upload = () => {
   const [uploadResult, setUploadResult] = useState(null);
 

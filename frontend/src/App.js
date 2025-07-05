@@ -1,8 +1,10 @@
 import './App.css';
 import { BrowserRouter as Router,Route,Routes,Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Register from './pages/Register';
-import Login from './pages/Login';
+import DashBoard from './pages/Dashboard';
+import Transcations from './pages/Transcations';
+import Register from './pages/register';
+import Login from './pages/login';
 import Upload from './pages/Upload'
 import './App.css'
 
@@ -20,7 +22,7 @@ function App() {
         <Route path = '/register' element = {<Register/>} />
         <Route path = '/login' element = {<Login/>} />
         <Route path = '/dashboard' element = 
-        {<PrivateRoute>{<Dashboard/>} </PrivateRoute>}
+        {<PrivateRoute>{<DashBoard/>} </PrivateRoute>}
         />
         <Route path = '/transcations' element = 
         {<PrivateRoute>{<Transcations/>} </PrivateRoute>}
