@@ -14,14 +14,16 @@ const createTransactionService = async( userId , data )=>{
     }
 };
 
-const getTransactionService = async (userId, { start, end, page = 1, limit = 10 }) => {
+const getTransactionService = async (userId, { start, end, page = 1, limit = 10,type }) => {
   try {
     const query = { userId };
 
     if (start && end) {
       query.date = { $gte: new Date(start), $lte: new Date(end) };
     }
-
+      if (type && type !== 'all') {
+    query.type = type;
+  }
     const transactions = await Transaction.find(query)
       .sort({ date: -1 })
       .skip((page - 1) * limit)

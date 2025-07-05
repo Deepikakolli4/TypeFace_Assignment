@@ -13,16 +13,21 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="nav-link">Home</Link>
-      <Link to="/dashboard" className="nav-link">Dashboard</Link>
-      <Link to="/transactions" className="nav-link">Transactions</Link>
-      <Link to="/upload" className="nav-link">Upload</Link>
+      <Link to="/home" className="nav-button">Home</Link>
       {token ? (
-        <button onClick={handleLogout} className="nav-button">Logout</button>
+        <>
+          <Link to="/dashboard" className="nav-button">Dashboard</Link>
+          <Link to="/transactions" className="nav-button">Transactions</Link>
+          <Link to="/upload" className="nav-button">Upload</Link>
+          <button onClick={handleLogout} className="nav-button nav-button-logout">Logout</button>
+        </>
       ) : (
         <>
-          <Link to="/register" className="nav-link">Register</Link>
-          <Link to="/login" className="nav-link">Login</Link>
+          <Link to="/dashboard" className="nav-button">Dashboard</Link>
+          <Link to="/transactions" className="nav-button">Transactions</Link>
+          <Link to="/upload" className="nav-button">Upload</Link>
+          <Link to="/register" className="nav-button">Register</Link>
+          <Link to="/login" className="nav-button">Login</Link>
         </>
       )}
     </nav>

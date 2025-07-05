@@ -11,8 +11,8 @@ const createTransaction = async (req, res) => {
 
 const getTransaction = async (req, res) => {
   try {
-    const { start, end, page, limit } = req.query;
-    const transactions = await transactionService.getTransactionService(req.user.userId, { start, end, page, limit });
+    const { start, end, page, limit,type} = req.query;
+    const transactions = await transactionService.getTransactionService(req.user.userId, { start, end, page, limit,type });
     res.json(transactions);
   } catch (error) {
     res.status(400).json({ error: error.message });

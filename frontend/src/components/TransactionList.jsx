@@ -34,6 +34,12 @@ const TransactionList = () => {
         setFilters({...filters,page:newPage});
       }
   };
+  const formatDate = (dateStr) => {
+  if (!dateStr) return 'N/A';
+  const date = new Date(dateStr);
+  return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString('en-US');
+};
+
   return (
     <div className='transcation-list-container'>
         <h3 className='form-title'>Transcations</h3>
@@ -95,7 +101,7 @@ const TransactionList = () => {
                 <td>${tx.amount.toFixed(2)}</td>
                 <td>{tx.type}</td>
                 <td>{tx.category}</td>
-                <td>{new Date(tx.date).toLocaleDateString()}</td>
+                <td>{formatDate(tx.createdAt)}</td>
                 <td>
                   <button
                     onClick={() => handleDelete(tx._id)}
