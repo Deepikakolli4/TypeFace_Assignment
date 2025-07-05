@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../App.css';
 import { getSummary } from '../api/api';
 import { Pie, Bar } from 'react-chartjs-2';
 import {
@@ -11,7 +12,6 @@ import {
   Legend,
   Title,
 } from 'chart.js';
-import '../App.css';
 
 ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend, Title);
 
