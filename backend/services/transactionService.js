@@ -14,24 +14,30 @@ const createTransactionService = async( userId , data )=>{
     }
 };
 
-const getTransactionService = async (userId, { start, end, page = 1, limit = 10,type }) => {
+
+const getTransactionService = async (userId, { start, end, page = 1, limit = 8, type }) => {
   try {
     const query = { userId };
 
-    if (start && end) {
-      query.date = { $gte: new Date(start), $lte: new Date(end) };
+    if (start || end) {
+      query.createdAt = {};
+      if (start) query.createdAt.$gte = new Date(start);
+      if (end) query.createdAt.$lte = new Date(end);
     }
-      if (type && type !== 'all') {
-    query.type = type;
-  }
+    if (type && type !== 'all') {
+      query.type = type;
+    }
+
     const transactions = await Transaction.find(query)
-      .sort({ date: -1 })
+      .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(parseInt(limit));
-      console.log(transactions);
-    return transactions;
+
+    const total = await Transaction.countDocuments(query);
+    return { transactions, total };
   } catch (error) {
-    console.log(error.message);
+    console.error('Error fetching transactions:', error.message);
+    throw new Error('Failed to fetch transactions');
   }
 };
 

@@ -1,100 +1,113 @@
-import React , {useState,useEffect,useCallback} from 'react'
-import { getTransactions,deleteTransaction } from '../api/api'
-import '../App.css'
+import React, { useState, useEffect, useCallback } from 'react';
+import { getTransactions, deleteTransaction } from '../api/api';
+import '../App.css';
+
 const TransactionList = () => {
-  const [transactions , setTransactions] = useState([]);
-  const [filters , setFilters] = useState({start:'',end:'',page:1,limit:10});
-  const [error,setError] = useState('');
- const fetchTranscations = useCallback(async () => {
+  const [transactions, setTransactions] = useState([]);
+  const [filters, setFilters] = useState({ start: '', end: '', type: 'all', page: 1, limit: 8 });
+  const [total, setTotal] = useState(0);
+  const [error, setError] = useState('');
+
+  const fetchTransactions = useCallback(async () => {
     try {
+      console.log('Fetching transactions with filters:', filters);
       const response = await getTransactions(filters);
-      setTransactions(response.data);
+      console.log('API response:', response.data);
+      setTransactions(response.data.transactions || []);
+      setTotal(response.data.total || 0);
       setError('');
     } catch (err) {
-      setError(err.response?.data?.error || 'Something went wrong');
+      const errorMessage = err.response?.data?.error || 'Failed to fetch transactions';
+      console.error('Fetch error:', err);
+      setError(errorMessage);
     }
   }, [filters]);
-  useEffect(() =>{
-     fetchTranscations();
-  },[fetchTranscations])
 
-  const handleDelete = async(id) =>{
-    try{
-       await deleteTransaction(id);
-       fetchTranscations();
-    }catch(err){
-        setError(err.response?.data?.error);
+  useEffect(() => {
+    fetchTransactions();
+  }, [fetchTransactions]);
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteTransaction(id);
+      fetchTransactions();
+    } catch (err) {
+      setError(err.response?.data?.error || 'Failed to delete transaction');
     }
   };
-  const handleFilterChange = (e) =>{
-    setFilters({ ...filters,[e.target.name]:e.target.value,page:1});
+
+  const handleFilterChange = (e) => {
+    setFilters({ ...filters, [e.target.name]: e.target.value, page: 1 });
   };
+
   const handlePageChange = (newPage) => {
-      if(newPage >= 1){
-        setFilters({...filters,page:newPage});
-      }
+    if (newPage >= 1 && newPage <= Math.ceil(total / filters.limit)) {
+      setFilters({ ...filters, page: newPage });
+    }
   };
+
   const formatDate = (dateStr) => {
-  if (!dateStr) return 'N/A';
-  const date = new Date(dateStr);
-  return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString('en-US');
-};
+    if (!dateStr) return 'N/A';
+    const date = new Date(dateStr);
+    return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString('en-US');
+  };
+
+  const maxPages = Math.ceil(total / filters.limit) || 1;
 
   return (
-    <div className='transcation-list-container'>
-        <h3 className='form-title'>Transcations</h3>
-        {error && <p className='error-message'>{error}</p>}
-        <div className='filter-group'>
-        <div className='form-group'>
-            <label htmlFor='start' className='form-label'>Start Date</label>
-            <input
-              type = "date"
-              id = "start"
-              name = "start"
-              value = {filters.start}
-              onChange={handleFilterChange}
-              className='form-input'
-            />
+    <div className="transcation-list-container">
+      {error && <p className="error-message">{error}</p>}
+      <div className="filter-group">
+        <div className="form-group">
+          <label htmlFor="start" className="form-label">Start Date</label>
+          <input
+            type="date"
+            id="start"
+            name="start"
+            value={filters.start}
+            onChange={handleFilterChange}
+            className="form-input"
+          />
         </div>
-        <div className='form-group'>
-            <label htmlFor='end' className='form-label'>End Date</label>
-            <input
-              type = "date"
-              id = "end"
-              name = "end"
-              value = {filters.end}
-              onChange={handleFilterChange}
-              className='form-input'
-            />
+        <div className="form-group">
+          <label htmlFor="end" className="form-label">End Date</label>
+          <input
+            type="date"
+            id="end"
+            name="end"
+            value={filters.end}
+            onChange={handleFilterChange}
+            className="form-input"
+          />
         </div>
-         <div className='form-group'>
-            <label htmlFor='end' className='form-label'>Type</label>
-            <select
-              id = "type"
-              name = "type"
-              value = {filters.type}
-              onChange={handleFilterChange}
-              className='form-select'
-            >
-             <option value="all">All</option>
+        <div className="form-group">
+          <label htmlFor="type" className="form-label">Type</label>
+          <select
+            id="type"
+            name="type"
+            value={filters.type}
+            onChange={handleFilterChange}
+            className="form-select"
+          >
+            <option value="all">All</option>
             <option value="income">Income</option>
             <option value="expense">Expense</option>
           </select>
         </div>
-       </div>
-       <table className='transcation-table'>
+      </div>
+      <table className="transcation-table">
         <thead>
-            <tr>
-                <th>Title</th>
-                <th>Amount</th>
-                <th>Type</th>
-                <th>Category</th>
-                <th>Date</th>
-                <th>Action</th>
-            </tr>
+          <tr>
+            <th>Title</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
         </thead>
         <tbody>
-           {transactions.length > 0 ? (
+          {transactions.length > 0 ? (
             transactions.map((tx) => (
               <tr key={tx._id}>
                 <td>{tx.title}</td>
@@ -118,19 +131,20 @@ const TransactionList = () => {
             </tr>
           )}
         </tbody>
-       </table>
-       <div className='pagination'>
-         <button
+      </table>
+      <div className="pagination">
+        <button
           onClick={() => handlePageChange(filters.page - 1)}
           disabled={filters.page === 1}
-          className={filters.page === 1 ? 'form-button-disabled' : 'form-button'}
+          className={filters.page === 1 ? 'pagination-button-disabled' : 'pagination-button'}
         >
           Previous
         </button>
-        <span className="page-info">Page {filters.page}</span>
+        <span className="pagination-info">Page {filters.page} of {maxPages}</span>
         <button
           onClick={() => handlePageChange(filters.page + 1)}
-          className="form-button"
+          disabled={filters.page === maxPages}
+          className={filters.page === maxPages ? 'pagination-button-disabled' : 'pagination-button'}
         >
           Next
         </button>
@@ -138,4 +152,5 @@ const TransactionList = () => {
     </div>
   );
 };
+
 export default TransactionList;

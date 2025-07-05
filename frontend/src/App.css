@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800;1000&display=swap');
 
-/* Formal Professional CSS Design - White & Green Theme */
-
 * {
   margin: 0;
   padding: 0;
@@ -9,14 +7,12 @@
 }
 
 :root {
-  /* Professional Green & White Color Palette */
   --primary-green: #2d7d32;
   --primary-green-light: #4caf50;
   --primary-green-dark: #1b5e20;
   --accent-green: #81c784;
   --light-green: #e8f5e8;
   --very-light-green: #f1f8e9;
-  
   --white: #ffffff;
   --off-white: #fafafa;
   --light-gray: #f5f5f5;
@@ -25,33 +21,23 @@
   --text-primary: #2e2e2e;
   --text-secondary: #616161;
   --border-color: #d4edda;
-  
-  /* Professional Shadows */
   --shadow-light: 0 2px 8px rgba(45, 125, 50, 0.08);
   --shadow-medium: 0 4px 16px rgba(45, 125, 50, 0.12);
   --shadow-heavy: 0 8px 24px rgba(45, 125, 50, 0.16);
-  
-  /* Typography */
   --font-family: 'Roboto', sans-serif;
   --font-size-small: 0.875rem;
   --font-size-normal: 1rem;
   --font-size-large: 1.125rem;
   --font-size-xl: 1.5rem;
   --font-size-xxl: 2rem;
-  
-  /* Spacing */
-  --spacing-xs: 0.24rem;
-  --spacing-sm: 0.3rem;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
-  --spacing-lg: 1.8rem;
+  --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
   --spacing-xxl: 3rem;
-  
-  /* Border Radius */
   --border-radius: 8px;
   --border-radius-large: 12px;
-  
-  /* Transitions */
   --transition: all 0.3s ease;
 }
 
@@ -61,10 +47,6 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
 }
-
-/* ===========================================
-   LAYOUT & CONTAINER STYLES
-   =========================================== */
 
 .App {
   min-height: 100vh;
@@ -99,10 +81,6 @@ body {
   background: linear-gradient(90deg, var(--primary-green), var(--accent-green));
   border-radius: 2px;
 }
-
-/* ===========================================
-   NAVIGATION STYLES
-   =========================================== */
 
 .navbar {
   background: var(--white);
@@ -184,10 +162,6 @@ body {
   padding-right: var(--spacing-md);
 }
 
-/* ===========================================
-   HOME PAGE STYLES
-   =========================================== */
-
 .home-container {
   display: flex;
   flex-direction: column;
@@ -245,10 +219,6 @@ body {
   margin: 0 auto;
   line-height: 1.7;
 }
-
-/* ===========================================
-   FORM STYLES
-   =========================================== */
 
 .form-container {
   background: var(--white);
@@ -358,9 +328,52 @@ body {
   opacity: 0.6;
 }
 
-/* ===========================================
-   UPLOAD CONTAINER STYLES
-   =========================================== */
+.pagination-button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-light) 100%);
+  color: var(--white);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-light);
+}
+
+.pagination-button:hover {
+  background: linear-gradient(135deg, var(--primary-green-dark) 0%, var(--primary-green) 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.pagination-button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-light);
+}
+
+.pagination-button-disabled {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--medium-gray);
+  color: var(--dark-gray);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.pagination-info {
+  font-size: var(--font-size-large);
+  font-weight: 600;
+  color: var(--primary-green-dark);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--white);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-light);
+}
 
 .upload-container {
   background: var(--white);
@@ -386,10 +399,6 @@ input[type="file"]:hover {
   background: var(--light-green) !important;
 }
 
-/* ===========================================
-   DASHBOARD STYLES
-   =========================================== */
-
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -403,10 +412,6 @@ input[type="file"]:hover {
     grid-template-columns: 1fr 1fr;
   }
 }
-
-/* ===========================================
-   CHART CONTAINER STYLES
-   =========================================== */
 
 .chart-container {
   background: var(--white);
@@ -423,10 +428,6 @@ input[type="file"]:hover {
   margin: var(--spacing-lg) 0;
   border: 1px solid var(--light-green);
 }
-
-/* ===========================================
-   TRANSACTION LIST STYLES
-   =========================================== */
 
 .transcation-list-container {
   background: var(--white);
@@ -514,10 +515,6 @@ input[type="file"]:hover {
   border-bottom-right-radius: var(--border-radius);
 }
 
-/* ===========================================
-   ACTION BUTTON STYLES
-   =========================================== */
-
 .action-button {
   padding: var(--spacing-sm) var(--spacing-md);
   border: none;
@@ -540,10 +537,6 @@ input[type="file"]:hover {
   box-shadow: var(--shadow-medium);
 }
 
-/* ===========================================
-   PAGINATION STYLES
-   =========================================== */
-
 .pagination {
   display: flex;
   justify-content: center;
@@ -554,53 +547,6 @@ input[type="file"]:hover {
   background: var(--very-light-green);
   border-radius: var(--border-radius);
 }
-
-.page-info {
-  font-size: var(--font-size-normal);
-  font-weight: 600;
-  color: var(--primary-green-dark);
-  padding: var(--spacing-sm) var(--spacing-md);
-  background: var(--white);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-light);
-}
-
-/* ===========================================
-   TRANSACTION LIST (UL) STYLES
-   =========================================== */
-
-.transaction-list {
-  list-style: none;
-  padding: 0;
-  margin: var(--spacing-lg) 0;
-}
-
-.transaction-item {
-  background: var(--white);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
-  transition: var(--transition);
-  box-shadow: var(--shadow-light);
-}
-
-.transaction-item:hover {
-  box-shadow: var(--shadow-medium);
-  transform: translateX(4px);
-  border-color: var(--primary-green);
-}
-
-.transaction-title {
-  font-weight: 600;
-  color: var(--primary-green-dark);
-  font-size: var(--font-size-normal);
-}
-
-/* ===========================================
-   ERROR & SUCCESS MESSAGES
-   =========================================== */
 
 .error-message {
   background: #ffebee;
@@ -632,10 +578,6 @@ input[type="file"]:hover {
   margin-top: var(--spacing-lg);
 }
 
-/* ===========================================
-   NO DATA STATE
-   =========================================== */
-
 .no-data {
   text-align: center;
   color: var(--text-secondary);
@@ -646,43 +588,33 @@ input[type="file"]:hover {
   font-size: var(--font-size-normal);
 }
 
-/* ===========================================
-   RESPONSIVE DESIGN
-   =========================================== */
-
 @media (max-width: 768px) {
   .page-container {
     padding: var(--spacing-lg) var(--spacing-md);
   }
-  
   .home-title {
     font-size: 2rem;
   }
-  
   .navbar {
     flex-direction: column;
     gap: var(--spacing-md);
     align-items: flex-start;
   }
-  
   .nav-links {
     margin: 0;
     width: 100%;
     justify-content: flex-start;
   }
-  
   .auth-links {
     width: 100%;
     justify-content: flex-start;
     padding-right: 0;
   }
-  
   .nav-link,
   .nav-username,
   .nav-button-logout {
     min-width: 120px;
   }
-  
   .form-container,
   .upload-container,
   .transcation-list-container,
@@ -690,11 +622,9 @@ input[type="file"]:hover {
     margin: var(--spacing-md);
     padding: var(--spacing-lg);
   }
-  
   .transcation-table {
     font-size: var(--font-size-small);
   }
-  
   .transcation-table th,
   .transcation-table td {
     padding: var(--spacing-sm);
@@ -705,21 +635,15 @@ input[type="file"]:hover {
   .home-title {
     font-size: 1.75rem;
   }
-  
   .page-title {
     font-size: var(--font-size-xl);
   }
-  
   .transcation-table {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
   }
 }
-
-/* ===========================================
-   UTILITY CLASSES
-   =========================================== */
 
 .text-center {
   text-align: center;
@@ -757,10 +681,6 @@ input[type="file"]:hover {
   border-radius: var(--border-radius-large);
 }
 
-/* ===========================================
-   ANIMATIONS
-   =========================================== */
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -776,10 +696,6 @@ input[type="file"]:hover {
   animation: fadeIn 0.5s ease-out;
 }
 
-/* ===========================================
-   FOCUS STYLES FOR ACCESSIBILITY
-   =========================================== */
-
 *:focus {
   outline: 2px solid var(--primary-green);
   outline-offset: 2px;
@@ -793,10 +709,6 @@ button:focus {
 .nav-link:focus {
   outline: none;
 }
-
-/* ===========================================
-   SELECTION STYLES
-   =========================================== */
 
 ::selection {
   background: var(--light-green);

@@ -5,7 +5,7 @@ const Transcations = () => {
   return (
     <div className='page-container'>
         <h2 className='page-title'>
-            Transcations
+            Transactions
         </h2>
         <TranscationList/>
     </div>
