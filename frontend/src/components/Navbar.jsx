@@ -5,15 +5,17 @@ import '../App.css';
 const Navbar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
+  const username = localStorage.getItem('username') || 'User';
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
     navigate('/home');
   };
 
   return (
     <nav className="navbar">
-      <div className="navbar-brand">Personal Finance Tracer</div>
+      <div className="navbar-brand">Personal Finance Tracker</div>
       <NavLink 
         to="/home" 
         className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
@@ -39,12 +41,15 @@ const Navbar = () => {
         Upload
       </NavLink>
       {token ? (
-        <button 
-          onClick={handleLogout} 
-          className="nav-link nav-button-logout"
-        >
-          Logout
-        </button>
+        <>
+          <span className="nav-username">{username}</span>
+          <button 
+            onClick={handleLogout} 
+            className="nav-button-logout"
+          >
+            Logout
+          </button>
+        </>
       ) : (
         <>
           <NavLink 
