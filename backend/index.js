@@ -13,14 +13,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Auto-create uploads directory
-const uploadDir = path.resolve('uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
 //  Serve static files from uploads
-app.use('/uploads', express.static('./uploads'));
+app.use('/uploads',express.static('uploads'));
 
 // MongoDB Connection
 const mongoURI = process.env.MONGO_URI;

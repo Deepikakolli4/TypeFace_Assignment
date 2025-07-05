@@ -39,10 +39,16 @@ const getTransactionSummary = async (req, res) => {
 
 const uploadReceipt = async (req, res) => {
   try {
-    if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
 
-    const extractedData = await transactionService.uploadReceiptService(req.file, req.user.userId);
-    res.json(extractedData);
+    const result = await transactionService.uploadReceiptService(req.file, req.user.userId);
+
+    res.json({
+      extractedLines: result.extractedLines,
+      createdTransactions: result.createdTransactions
+    });
 
   } catch (error) {
     res.status(400).json({ error: error.message });

@@ -1,5 +1,5 @@
 import Transaction from '../models/Transaction.js'
-// import Tesseract from 'tesseract.js';
+import Tesseract from 'tesseract.js';
 // import pdfParse from 'pdf-parse';
 // import fs from 'fs';
 const createTransactionService = async( userId , data )=>{
@@ -52,17 +52,47 @@ const getTransactionSummaryService = async(userId) => {
       }
 };
 
-import Tesseract from 'tesseract.js';
-
 const uploadReceiptService = async (file, userId) => {
   try {
     const imagePath = file.path;
 
-    const result = await Tesseract.recognize(imagePath, 'eng');  
-    const lines = result.data.text.split('\n').filter(line => line.trim() !== '');
+    const result = await Tesseract.recognize(imagePath, 'eng');
+    const extractedText = result.data.text;
+    const lines = extractedText.split('\n').filter(line => line.trim() !== '');
 
-    return { extractedLines: lines };
+    const createdTransactions = [];
 
+    for (const line of lines) {
+      let title, amount;
+
+      if (line.includes('-')) {
+        [title, amount] = line.split('-').map(s => s.trim());
+      } else {
+        const parts = line.trim().split(' ');
+        amount = parseFloat(parts[parts.length - 1]);
+        title = parts.slice(0, parts.length - 1).join(' ');
+      }
+
+      if (!isNaN(amount) && title) {
+        const transaction = new Transaction({
+          title,
+          amount,
+          type: 'expense',
+          category: 'Receipt',
+          description: 'Auto-generated from receipt',
+          date: new Date(),
+          userId
+        });
+
+        await transaction.save();
+        createdTransactions.push(transaction);
+      }
+    }
+
+    return {
+      extractedLines: lines,
+      createdTransactions
+    };
   } catch (error) {
     console.log('Error in uploadReceiptService:', error.message);
     throw error;
