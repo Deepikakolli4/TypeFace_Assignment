@@ -1,38 +1,38 @@
-import './App.css';
-import { BrowserRouter as Router,Route,Routes,Navigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import DashBoard from './pages/Dashboard';
-import Transcations from './pages/Transcations';
+import Dashboard from './pages/Dashboard';
+import Transactions from './pages/Transcations';
 import Register from './pages/register';
 import Login from './pages/login';
-import Upload from './pages/Upload'
-import './App.css'
+import Upload from './pages/Upload';
+import Home from './pages/Home';
+import './App.css';
 
-const PrivateRoute = ({children}) =>{
+const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem('token');
-  return token ? children : <Navigate to ="/login" />;
+  return token ? children : <Navigate to="/login" />;
 };
 
 function App() {
   return (
     <Router>
-    <Navbar />
-    <div className="app-container">
-      <Routes>
-        <Route path = '/register' element = {<Register/>} />
-        <Route path = '/login' element = {<Login/>} />
-        <Route path = '/dashboard' element = 
-        {<PrivateRoute>{<DashBoard/>} </PrivateRoute>}
-        />
-        <Route path = '/transcations' element = 
-        {<PrivateRoute>{<Transcations/>} </PrivateRoute>}
-        />
-        <Route path = '/upload' element = 
-        {<PrivateRoute>{<Upload/>} </PrivateRoute>}
-        />
-        <Route path = '/' element = {< Navigate to = "/home"/>} />
-      </Routes>
-    </div>
+      <div className="App">
+        <header className="App-header">
+          <Navbar />
+        </header>
+        <main className="App-main">
+          <Routes>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path="/transactions" element={<PrivateRoute><Transactions /></PrivateRoute>} />
+            <Route path="/upload" element={<PrivateRoute><Upload /></PrivateRoute>} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Navigate to="/home" />} />
+          </Routes>
+        </main>
+      </div>
     </Router>
   );
 }
