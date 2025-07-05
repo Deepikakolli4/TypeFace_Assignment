@@ -2,7 +2,7 @@ import React,{use, useState} from 'react'
 import { registerUser } from '../api/api'
 import { useNavigate } from 'react-router-dom'
 
-const register = () => {
+const Register = () => {
   const [formData,setFormData] = useState({
     username : '',
     email:'',
@@ -77,4 +77,4 @@ const register = () => {
   )
 }
 
-export default register
+export default Register
