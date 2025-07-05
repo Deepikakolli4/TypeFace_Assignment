@@ -12,5 +12,4 @@ router.get('/summary', authenticateToken, transactionController.getTransactionSu
 router.post('/receipt-upload', authenticateToken, uploadMiddleWare.single('receipt'), transactionController.uploadReceipt);
 router.post('/pdf-upload', authenticateToken, uploadMiddleWare.single('pdf'), transactionController.uploadPdf);
 
-
 export default router;
