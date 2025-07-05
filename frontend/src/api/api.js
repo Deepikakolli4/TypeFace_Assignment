@@ -2,14 +2,17 @@ import axios from 'axios';
 import { urls } from '../constants/constants';
 
 const api = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: process.env.REACT_APP_BASE_URL,
 });
+
+console.log('BASE_URL from env:', process.env.REACT_APP_BASE_URL);
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  console.log(`Requesting: ${config.baseURL}${config.url}`);
   return config;
 });
 
