@@ -1,7 +1,10 @@
 import Transaction from '../models/Transaction.js'
 import Tesseract from 'tesseract.js';
-// import pdfParse from 'pdf-parse';
-// import fs from 'fs';
+import { createRequire } from 'module';
+import fs from 'fs';
+const require = createRequire(import.meta.url);;
+const path = require('path');
+const pdfParse = require('pdf-parse'); // Add pdf-parse dependency
 const createTransactionService = async( userId , data )=>{
     try{
         const transaction = new Transaction({...data,userId});
@@ -102,17 +105,74 @@ const uploadReceiptService = async (file, userId) => {
 
 const uploadPdfService = async (file, userId) => {
   try {
-    console.log('File path:', file.path);
-    if (!fs.existsSync(file.path)) {
-      throw new Error(`File not found at: ${file.path}`);
+    const pdfPath = file.path;
+
+    // 1. Read and parse the PDF
+    const dataBuffer = fs.readFileSync(pdfPath);
+    const pdfData = await pdfParse(dataBuffer);
+    const text = pdfData.text;
+
+    // Split text into lines and filter out empty lines
+    const lines = text.split('\n').filter(line => line.trim() !== '');
+
+    const extractedLines = [];
+    const createdTransactions = [];
+
+    // 2. Parse table rows (assuming table starts after '| Description |' header)
+    let isTable = false;
+    for (const line of lines) {
+      extractedLines.push(line);
+
+      // Detect table start
+      if (line.includes('| Description |')) {
+        isTable = true;
+        continue;
+      }
+
+      // Process table rows
+      if (isTable && line.includes('|')) {
+        // Split table row by '|' and trim
+        const columns = line.split('|').map(s => s.trim()).filter(s => s !== '');
+
+        // Ensure we have Description and Total (4 columns: Description, Quantity, Unit Price, Total)
+        if (columns.length >= 4) {
+          const description = columns[0];
+          const total = parseFloat(columns[3].replace(/[^0-9.]/g, '')); // Extract numeric total
+
+          // Create transaction if valid
+          if (!isNaN(total) && description) {
+            const transaction = new Transaction({
+              title: description,
+              amount: total,
+              type: 'expense',
+              category: 'Receipt',
+              description: 'Auto-generated from PDF table',
+              date: new Date(),
+              userId,
+            });
+
+            await transaction.save();
+            createdTransactions.push(transaction);
+          }
+        }
+      }
+
+      // Stop table parsing after the table ends (e.g., when 'Total:' is encountered)
+      if (line.includes('Total:') || line.includes('Payment Info')) {
+        isTable = false;
+      }
     }
-    const pdfBuffer = fs.readFileSync(file.path);
-    const data = await pdfParse(pdfBuffer);
-    const lines = data.text.split('\n').filter(line => line.trim() !== '');
-    fs.unlinkSync(file.path); // Clean up
-    return { extractedLines: lines };
+
+    // 3. Delete the original PDF
+    fs.unlinkSync(pdfPath);
+
+    return {
+      message: 'Transactions created from scanned PDF',
+      extractedLines,
+      createdTransactions,
+    };
   } catch (error) {
-    console.log('Error in uploadPdfService:', error.message);
+    console.error('Error in uploadPdfService:', error.message);
     throw error;
   }
 };
