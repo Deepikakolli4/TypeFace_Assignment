@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { loginUser } from '../api/api'
 import { useNavigate } from 'react-router-dom'
+import '../../src/App.css'
 const login = () => {
   const[formData , setFormData] = useState({
     email : '',
