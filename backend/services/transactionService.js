@@ -100,22 +100,22 @@ const uploadReceiptService = async (file, userId) => {
 };
 
 
-// const uploadPdfService = async (file, userId) => {
-//   try {
-//     console.log('File path:', file.path);
-//     if (!fs.existsSync(file.path)) {
-//       throw new Error(`File not found at: ${file.path}`);
-//     }
-//     const pdfBuffer = fs.readFileSync(file.path);
-//     const data = await pdfParse(pdfBuffer);
-//     const lines = data.text.split('\n').filter(line => line.trim() !== '');
-//     fs.unlinkSync(file.path); // Clean up
-//     return { extractedLines: lines };
-//   } catch (error) {
-//     console.log('Error in uploadPdfService:', error.message);
-//     throw error;
-//   }
-// };
+const uploadPdfService = async (file, userId) => {
+  try {
+    console.log('File path:', file.path);
+    if (!fs.existsSync(file.path)) {
+      throw new Error(`File not found at: ${file.path}`);
+    }
+    const pdfBuffer = fs.readFileSync(file.path);
+    const data = await pdfParse(pdfBuffer);
+    const lines = data.text.split('\n').filter(line => line.trim() !== '');
+    fs.unlinkSync(file.path); // Clean up
+    return { extractedLines: lines };
+  } catch (error) {
+    console.log('Error in uploadPdfService:', error.message);
+    throw error;
+  }
+};
 
 
 export default {
@@ -124,5 +124,5 @@ export default {
     deleteTransactionService,
     getTransactionSummaryService,
     uploadReceiptService,
-    // uploadPdfService
+    uploadPdfService
 }
