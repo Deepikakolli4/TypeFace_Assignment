@@ -59,3 +59,4 @@ const FileUpload = ({ onUploadSuccess }) => {
     </div>
   );
 };
+export default FileUpload;
