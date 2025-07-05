@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { urls } from '../constants/constants';
-//add to env
+
 const api = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: process.env.BASE_URL,
 });
 
 api.interceptors.request.use((config) => {
