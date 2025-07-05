@@ -98,7 +98,7 @@ const TransactionList = () => {
             transactions.map((tx) => (
               <tr key={tx._id}>
                 <td>{tx.title}</td>
-                <td>${tx.amount.toFixed(2)}</td>
+                <td>₹{tx.amount.toFixed(2)}</td>
                 <td>{tx.type}</td>
                 <td>{tx.category}</td>
                 <td>{formatDate(tx.createdAt)}</td>
