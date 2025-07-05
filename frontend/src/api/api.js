@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+import { urls } from '../constants/constants';
+//add to env
 const api = axios.create({
   baseURL: 'http://localhost:8000',
 });
@@ -13,7 +14,7 @@ api.interceptors.request.use((config) => {
 });
 
 export const registerUser = (data) => api.post('/users/register', data);
-export const loginUser = (data) => api.post('/users/login', data);
+export const loginUser = (data) => api.post(urls.login, data);
 export const createTransaction = (data) => api.post('/transactions/create', data);
 export const getTransactions = (params) => api.get('/transactions', { params });
 export const deleteTransaction = (id) => api.delete(`/transactions/${id}`);
