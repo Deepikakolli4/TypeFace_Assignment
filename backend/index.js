@@ -30,7 +30,7 @@ app.use('/transactions', transactionRouter);
 
 const PORT = process.env.PORT;
 app.get('/',(req,res)=>{
-   res.send("Hello");
+   res.send('Hello');
 })
 app.listen(PORT, () => {
     console.log(`Server is Running at Port ${PORT}`);
