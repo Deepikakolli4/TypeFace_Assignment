@@ -14,6 +14,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/',(req,res)=>{
+   res.send('Hello');
+})
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 //  Serve static files from uploads
 app.use('/uploads',express.static('uploads'));
@@ -29,9 +33,6 @@ app.use('/users', userRouter);
 app.use('/transactions', transactionRouter);
 
 const PORT = process.env.PORT;
-app.get('/',(req,res)=>{
-   res.send('Hello');
-})
 app.listen(PORT, () => {
     console.log(`Server is Running at Port ${PORT}`);
     console.log(`Swagger docs at http://localhost:${PORT}/api-docs`);
