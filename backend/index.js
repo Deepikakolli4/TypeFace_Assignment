@@ -29,6 +29,9 @@ app.use('/users', userRouter);
 app.use('/transactions', transactionRouter);
 
 const PORT = process.env.PORT;
+app.get('/',(req,res)=>{
+   res.send("Hello");
+})
 app.listen(PORT, () => {
     console.log(`Server is Running at Port ${PORT}`);
     console.log(`Swagger docs at http://localhost:${PORT}/api-docs`);
