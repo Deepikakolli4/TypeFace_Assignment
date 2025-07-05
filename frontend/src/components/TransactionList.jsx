@@ -1,22 +1,22 @@
-import React , {useState,useEffect} from 'react'
+import React , {useState,useEffect,useCallback} from 'react'
 import { getTransactions,deleteTransaction } from '../api/api'
 import '../App.css'
 const TransactionList = () => {
-  const [transcations , setTranscations] = useState([]);
+  const [transactions , setTransactions] = useState([]);
   const [filters , setFilters] = useState({start:'',end:'',page:1,limit:10});
   const [error,setError] = useState('');
-  const fetchTranscations = async() =>{
-        try{
-           const response = await getTransactions(filters);
-           setTranscations(response.data);
-           setError('')
-        }catch(err){
-            setError(err.response?.data?.error);
-        }
-  };
+ const fetchTranscations = useCallback(async () => {
+    try {
+      const response = await getTransactions(filters);
+      setTransactions(response.data);
+      setError('');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Something went wrong');
+    }
+  }, [filters]);
   useEffect(() =>{
      fetchTranscations();
-  },[filters])
+  },[fetchTranscations])
 
   const handleDelete = async(id) =>{
     try{
