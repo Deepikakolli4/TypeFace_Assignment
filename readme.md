@@ -71,8 +71,6 @@ Installation and Setup
         
     *   npm install
         
-    *   MONGO\_URI=PORT=5000JWT\_SECRET=REACT\_APP\_BASE\_URL=http://localhost:5000
-        
     *   npm start
         
     *   The server will run on http://localhost:8000. API documentation is available at http://localhost:8000/api-docs.
