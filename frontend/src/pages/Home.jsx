@@ -7,7 +7,7 @@ const Home = () => {
       <div className="home-background">
         <div className="home-overlay">
           <header className="home-header">
-            <h1 className="home-title">Personal Finance Tracer💰</h1>
+            <h1 className="home-title">Personal Finance Assistant💰</h1>
             <p className="home-subtitle">Your Trusted Partner for Financial Management</p>
           </header>
           <section className="home-intro">
