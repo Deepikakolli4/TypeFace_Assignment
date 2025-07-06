@@ -157,7 +157,7 @@ const TransactionForm = ({ onTransactionCreated }) => {
           name="description"
           value={formData.description}
           onChange={handleChange}
-          placeholder="Enter description (optional)"
+          placeholder="Enter description"
           className="form-textarea"
           rows="4"
         />

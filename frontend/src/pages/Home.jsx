@@ -12,7 +12,9 @@ const Home = () => {
           </header>
           <section className="home-intro">
             <p className="home-description">
-              Efficiently manage your financial portfolio with our intuitive tools. Track income and expenses, upload receipts or PDFs for seamless transaction recording, and gain insights through detailed analytics.
+              Efficiently manage your financial portfolio with our intuitive tools.
+               Track income and expenses, upload receipts for seamless transaction recording,
+                and gain insights through detailed analytics.
             </p>
           </section>
         </div>
