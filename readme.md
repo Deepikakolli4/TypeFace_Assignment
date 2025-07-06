@@ -6,7 +6,9 @@ The Personal Finance Assistant is a full-stack web application designed to help 
 Test Samples
 --------
 **UserName:** test
+
 **email:** test@gmail.com
+
 **password:** 123
 
 **Watch Demo:** [https://youtu.be/P18YG9T1rEs](https://youtu.be/P18YG9T1rEs) 
