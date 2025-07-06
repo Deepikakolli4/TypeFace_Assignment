@@ -3,9 +3,12 @@ Personal Finance Assistant
 
 The Personal Finance Assistant is a full-stack web application designed to help users track, manage, and understand their financial activities. Users can log income and expenses, categorize transactions, view spending summaries through charts, and extract expenses from uploaded receipts  transaction histories. The application supports multiple users with secure authentication, pagination for transaction listings, and comprehensive API documentation via Swagger.
 
-**Watch Demo:** [https://www.youtube.com/watch?v=example-demo](https://www.youtube.com/watch?v=example-demo)  
-**Frontend Repository:** [https://github.com/yourusername/personal-finance-assistant-frontend](https://github.com/yourusername/personal-finance-assistant-frontend)  
-**Backend Repository:** [https://github.com/yourusername/personal-finance-assistant-backend](https://github.com/yourusername/personal-finance-assistant-backend)
+**Watch Demo:** [https://www.youtube.com/watch?v=example-demo](https://www.youtube.com/watch?v=example-demo) 
+ 
+**Frontend:** [https://type-face-assignment-kollideepikas-projects.vercel.app/](https://type-face-assignment-kollideepikas-projects.vercel.app/)
+
+**Backend:** [https://typeface-assignment-t3lk.onrender.com/](https://typeface-assignment-t3lk.onrender.com/)
+
 
 
 Features
