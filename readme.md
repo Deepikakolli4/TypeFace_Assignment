@@ -3,6 +3,11 @@ Personal Finance Assistant
 
 The Personal Finance Assistant is a full-stack web application designed to help users track, manage, and understand their financial activities. Users can log income and expenses, categorize transactions, view spending summaries through charts, and extract expenses from uploaded receipts  transaction histories. The application supports multiple users with secure authentication, pagination for transaction listings, and comprehensive API documentation via Swagger.
 
+**Watch Demo:** [https://www.youtube.com/watch?v=example-demo](https://www.youtube.com/watch?v=example-demo)  
+**Frontend Repository:** [https://github.com/yourusername/personal-finance-assistant-frontend](https://github.com/yourusername/personal-finance-assistant-frontend)  
+**Backend Repository:** [https://github.com/yourusername/personal-finance-assistant-backend](https://github.com/yourusername/personal-finance-assistant-backend)
+
+
 Features
 --------
 
@@ -20,14 +25,15 @@ Features
     
 
 Tech Stack
-----------
+-------------
 
-*   **Frontend**: React, React Router, Chart.js, Axios
-    
-*   **Backend**: Node.js, Express, MongoDB, Mongoose, JWT, Multer, Swagger (OpenAPI 3.0)
-    
-*   **Database**: MongoDB
-    
+| Layer       | Technologies                                                       |
+|-------------|--------------------------------------------------------------------|
+| Frontend    | React, React Router, Chart.js, Axios                              |
+| Backend     | Node.js, Express, MongoDB, Mongoose, JWT, Multer, Swagger         |
+| Database    | MongoDB (Local or Atlas Cloud)                                     |
+| Tools       | Swagger (OpenAPI 3.0), Multer, bcrypt, dotenv                      |
+
 
 Prerequisites
 -------------
