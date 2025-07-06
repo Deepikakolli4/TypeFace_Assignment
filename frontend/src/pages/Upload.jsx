@@ -6,7 +6,7 @@ const Upload = () => {
 
   return (
     <div className="page-container">
-      <h2 className="page-title">Upload Receipt or PDF</h2>
+      <h2 className="page-title">Upload Receipt</h2>
       <FileUpload onUploadSuccess={setUploadResult} />
       {uploadResult && (
         <div className="upload-result">
