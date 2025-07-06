@@ -49,18 +49,39 @@ const deleteTransactionService = async(userId,transactionId)=>{
     }
 };
 
-const getTransactionSummaryService = async(userId) => {
-      try{
-         const transactions = await Transaction.find({userId});
-         const summary = {totalIncome : 0, totalExpense: 0};
-         transactions.forEach(tx =>{
-            if(tx.type === 'income') summary.totalIncome += tx.amount;
-            else if(tx.type === 'expense') summary.totalExpense += tx.amount;
-         });
-         return summary;
-      }catch(error){
-        console.log(error.message);
+const getTransactionSummaryService = async (userId) => {
+  try {
+    const transactions = await Transaction.find({ userId });
+    const summary = {
+      totalIncome: 0,
+      totalExpense: 0,
+      categories: [], // Array to hold expense categories
+    };
+
+    // Aggregate transactions
+    const categoryMap = new Map(); 
+    transactions.forEach((tx) => {
+      if (tx.type === 'income') {
+        summary.totalIncome += tx.amount;
+      } else if (tx.type === 'expense') {
+        summary.totalExpense += tx.amount;
+        // Aggregate by category
+        const category = tx.category || 'Other'; 
+        categoryMap.set(category, (categoryMap.get(category) || 0) + tx.amount);
       }
+    });
+
+    // Convert categoryMap to array of { name, amount }
+    summary.categories = Array.from(categoryMap, ([name, amount]) => ({
+      name,
+      amount,
+    }));
+
+    return summary;
+  } catch (error) {
+    console.error('Error in getTransactionSummaryService:', error.message);
+    throw error; 
+  }
 };
 
 const uploadReceiptService = async (file, userId) => {

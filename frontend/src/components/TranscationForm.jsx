@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { createTransaction } from '../api/api';
-import '../App.css'
+import '../App.css';
 
 const TransactionForm = ({ onTransactionCreated }) => {
   const [formData, setFormData] = useState({
     title: '',
     amount: '',
+    date: new Date().toISOString().split('T')[0], // Default to today's date
     type: 'expense',
     category: 'Utility',
     description: '',
@@ -25,22 +26,40 @@ const TransactionForm = ({ onTransactionCreated }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.title.trim()) {
+      setError('Title is required');
+      return;
+    }
     if (formData.amount <= 0) {
       setError('Amount must be greater than 0');
       return;
     }
+    if (!formData.date) {
+      setError('Date is required');
+      return;
+    }
+
+    const dataToSend = {
+      ...formData,
+      amount: parseFloat(formData.amount), // Convert to number
+    };
+
     try {
-      const response = await createTransaction(formData);
+      console.log('Sending data:', dataToSend); // Debug: Log payload
+      const response = await createTransaction(dataToSend);
+      console.log('API response:', response.data); // Debug: Log response
       onTransactionCreated(response.data);
       setFormData({
         title: '',
         amount: '',
+        date: new Date().toISOString().split('T')[0], // Reset to today's date
         type: 'expense',
         category: 'Utility',
         description: '',
       });
       setError('');
     } catch (err) {
+      console.error('API error:', err.response?.data, err.message); // Debug: Log error
       setError(err.response?.data?.error || 'Failed to create transaction');
     }
   };
@@ -86,6 +105,19 @@ const TransactionForm = ({ onTransactionCreated }) => {
       </div>
 
       <div className="form-group">
+        <label htmlFor="date" className="form-label">Date</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          value={formData.date}
+          onChange={handleChange}
+          className="form-input"
+          required
+        />
+      </div>
+
+      <div className="form-group">
         <label htmlFor="type" className="form-label">Type</label>
         <select
           id="type"
@@ -93,6 +125,7 @@ const TransactionForm = ({ onTransactionCreated }) => {
           value={formData.type}
           onChange={handleChange}
           className="form-select"
+          required
         >
           <option value="" disabled>Select type</option>
           <option value="income">Income</option>
@@ -108,6 +141,7 @@ const TransactionForm = ({ onTransactionCreated }) => {
           value={formData.category}
           onChange={handleChange}
           className="form-select"
+          required
         >
           <option value="" disabled>Select category</option>
           {categories.map((cat) => (

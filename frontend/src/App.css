@@ -228,9 +228,10 @@ body {
   border: 1px solid var(--border-color);
   max-width: 500px;
   margin: 0 auto var(--spacing-xl);
-  margin-top: 80px;
 }
-
+.auth-form-container {
+  margin-top: var(--spacing-xl);
+}
 .form-title {
   font-size: var(--font-size-xl);
   font-weight: 600;
