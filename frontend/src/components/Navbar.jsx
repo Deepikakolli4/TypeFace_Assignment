@@ -25,17 +25,17 @@ const Navbar = () => {
         >
           Home
         </NavLink>
+         <NavLink 
+          to="/dashboard" 
+          className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
+        >
+          Dashboard
+        </NavLink>
         <NavLink 
           to="/transactions" 
           className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
         >
           Transactions
-        </NavLink>
-        <NavLink 
-          to="/dashboard" 
-          className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
-        >
-          Dashboard
         </NavLink>
         <NavLink 
           to="/upload" 
