@@ -228,6 +228,7 @@ body {
   border: 1px solid var(--border-color);
   max-width: 500px;
   margin: 0 auto var(--spacing-xl);
+  margin-top: 80px;
 }
 
 .form-title {
